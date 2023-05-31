@@ -1,0 +1,152 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%= title %></h1>
+            
+            <% if(action == 'add') { %>
+
+            <div class="card">
+                <div class="card-header">Branch</div>
+                <div class="card-body">
+                    <form method="POST" action="/Branch/add_Branch">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>id</label>
+                                    <input type="number" name="idBranch" id="idBranch" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>country</label>
+                                    <input type="text" name="Country" id="Country" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>state</label>
+                                    <input type="text" name="State" id="State" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>city town</label>
+                                    <input type="text" name="City_town" id="City_town" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn btn-primary" value="Add" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <% } else if(action == 'edit') { %>
+            <div class="card">
+                <div class="card-header">Branch</div>
+                <div class="card-body">
+                    <form method="POST" action="/Branch/edit/<%= BranchData.idBranch %>">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>id</label>
+                                    <input type="number" name="idBranch" id="idBranch" class="form-control" value="<%= BranchData.idBranch %>" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>country</label>
+                                    <input type="text" name="Country" id="Country" class="form-control" value="<%= BranchData.Country %>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>state</label>
+                                    <input type="text" name="State" id="State" class="form-control" value="<%= BranchData.State %>" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>city town</label>
+                                    <input type="text" name="City_town" id="City_town" class="form-control" value="<%= BranchData.City_town %>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn btn-primary" value="Edit" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% } else { %>
+                
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">Branch</div>
+                        <div class="col">
+                            <a href="/Branch/add" class="btn btn-success btn-sm float-end">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>id</th>
+                                <th>country</th>
+                                <th>state</th>
+                                <th>city town</th>
+                            </tr>
+                            <%
+                            if(BranchData.length > 0)
+                            {
+                                BranchData.forEach(function(data){
+                            %>
+                            <tr>
+                                <td><%= data.idBranch %></td>
+                                <td><%= data.Country %></td>
+                                <td><%= data.State %></td>
+                                <td><%= data.City_town %></td>
+                                <td>
+                                    <a href="/Branch/edit/<%= data.idBranch %>" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="/Branch/delete/<%= data.idBranch %>" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            <%
+                                });
+                            }
+                            else
+                            {
+                            %>
+                            <tr>
+                                <td colspan="5">No Data Found</td>
+                            </tr>
+                            <%
+                            }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div> 
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>
